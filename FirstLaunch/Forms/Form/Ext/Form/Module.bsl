@@ -9,6 +9,7 @@ EndProcedure
 
 &AtServer
 Procedure FillCountries()
+	
 	// Fill countries from template
 	Obj = FormAttributeToValue("Object");
 	Template = Obj.GetTemplate("Countries");
@@ -18,11 +19,11 @@ Procedure FillCountries()
 	
 	For RowNumber = Top To Bottom Do
 		
-		StructureCountry = New Structure;
-		AreaCountry = AreaCountries.Area(RowNumber, 1, RowNumber,1);
-		StructureCountry.Insert("Country", AreaCountry.Text);
-		AreaDescription = AreaCountries.Area(RowNumber, 2, RowNumber, 2);
-		StructureCountry.Insert("Description", AreaDescription.Text);
+		StructureCountry = New Structure("Country, Description, Postfix");
+		StructureCountry.Country = AreaCountries.Area(RowNumber, 1, RowNumber,1).Text;
+		StructureCountry.Description = AreaCountries.Area(RowNumber, 2, RowNumber, 2).Text;
+		StructureCountry.Postfix = AreaCountries.Area(RowNumber, 3, RowNumber, 3).Text;
+		
 		If ValueIsFilled(StructureCountry.Country) Then
 			NewRow = Countries.Add();
 			FillPropertyValues(NewRow, StructureCountry);
@@ -40,6 +41,7 @@ Procedure FillChoiceList()
 	If Countries.Count() > 0 Then
 		Object.Country = Countries[0].Country;
 		Object.Descriprion = Countries[0].Description;
+		Postfix = Countries[0].Postfix;
 	EndIf;
 	
 EndProcedure
@@ -52,6 +54,7 @@ Procedure CountryOnChange(Item)
 		Return;
 	EndIf;
 	Object.Descriprion = Rows[0].Description;
+	Postfix = Rows[0].Postfix;
 	
 EndProcedure
 
@@ -59,4 +62,25 @@ EndProcedure
 Procedure TipOfChoiceCountryURLProcessing(Item, FormattedStringURL, StandardProcessing)
 	StandardProcessing = False;
 	ShowMessageBox(, NStr("ru='Здесь будет подсказка.'; en='This is tip'"));
+EndProcedure
+
+&AtClient
+Procedure Go(Command)
+	
+	FillPredifenedDateAtServer();
+	
+EndProcedure
+
+&AtServer
+Procedure FillPredifenedDateAtServer()
+	
+	Obj = FormAttributeToValue("Object");
+	
+	Structure = Obj.PredifenedDateAtServer(Postfix);
+	DescriptionFull = Structure.NameOfCompany;
+	
+	// Set page "Company"
+	Items.GroupPages.CurrentPage = Items.PageCompany;
+	Items.Finish.DefaultButton = True;
+	
 EndProcedure

@@ -85,7 +85,7 @@
 		</languageInfo>
 	</languageSettings>
 	<columns>
-		<size>2</size>
+		<size>3</size>
 		<columnsItem>
 			<index>0</index>
 			<column>
@@ -124,6 +124,17 @@
 					</tl>
 				</c>
 			</c>
+			<c>
+				<c>
+					<f>0</f>
+					<tl>
+						<v8:item>
+							<v8:lang>en</v8:lang>
+							<v8:content>Постфикс</v8:content>
+						</v8:item>
+					</tl>
+				</c>
+			</c>
 		</row>
 	</rowsItem>
 	<rowsItem>
@@ -150,6 +161,17 @@
 Валюта учета.
 Налоги
 И прочее</v8:content>
+						</v8:item>
+					</tl>
+				</c>
+			</c>
+			<c>
+				<c>
+					<f>0</f>
+					<tl>
+						<v8:item>
+							<v8:lang>en</v8:lang>
+							<v8:content>Ru</v8:content>
 						</v8:item>
 					</tl>
 				</c>
@@ -181,6 +203,17 @@
 					</tl>
 				</c>
 			</c>
+			<c>
+				<c>
+					<f>0</f>
+					<tl>
+						<v8:item>
+							<v8:lang>en</v8:lang>
+							<v8:content>Ro</v8:content>
+						</v8:item>
+					</tl>
+				</c>
+			</c>
 		</row>
 	</rowsItem>
 	<rowsItem>
@@ -208,6 +241,17 @@
 					</tl>
 				</c>
 			</c>
+			<c>
+				<c>
+					<f>0</f>
+					<tl>
+						<v8:item>
+							<v8:lang>en</v8:lang>
+							<v8:content>La</v8:content>
+						</v8:item>
+					</tl>
+				</c>
+			</c>
 		</row>
 	</rowsItem>
 	<rowsItem>
@@ -220,6 +264,18 @@
 						<v8:item>
 							<v8:lang>en</v8:lang>
 							<v8:content>Любая другая страна</v8:content>
+						</v8:item>
+					</tl>
+				</c>
+			</c>
+			<c>
+				<i>2</i>
+				<c>
+					<f>0</f>
+					<tl>
+						<v8:item>
+							<v8:lang>en</v8:lang>
+							<v8:content>En</v8:content>
 						</v8:item>
 					</tl>
 				</c>
