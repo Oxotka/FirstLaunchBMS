@@ -77,10 +77,35 @@ Procedure FillPredifenedDateAtServer()
 	Obj = FormAttributeToValue("Object");
 	
 	Structure = Obj.PredifenedDateAtServer(Postfix);
-	DescriptionFull = Structure.NameOfCompany;
+	If Structure.Property("Company") And Structure.Company.Property("DescriptionFull") Then
+		DescriptionFull = Structure.Company.DescriptionFull;
+		InformationAboutCompany = Structure.Company;
+		InformationAboutCompany.Insert("DefaultVATRate", Structure.VAT);
+	EndIf;
+	
+	AccountingCurrency = Structure.Currency;
+	NationalCurrency   = Structure.Currency;
 	
 	// Set page "Company"
 	Items.GroupPages.CurrentPage = Items.PageCompany;
 	Items.Finish.DefaultButton = True;
+	
+EndProcedure
+
+&AtClient
+Procedure Finish(Command)
+	FinishAtServer();
+EndProcedure
+
+&AtServer
+Procedure FinishAtServer()
+	
+	Structure = New Structure;
+	Structure.Insert("Company", InformationAboutCompany);
+	Structure.Insert("AccountingCurrency", AccountingCurrency);
+	Structure.Insert("NationalCurrency", NationalCurrency);
+	
+	Obj = FormAttributeToValue("Object");
+	Obj.CreateCompany(Structure);
 	
 EndProcedure
