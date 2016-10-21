@@ -12,10 +12,11 @@ EndFunction
 Procedure CreateCompany(Structure) Export
 	
 	// Fill petty cashes.
-	PettyCash = Catalogs.TaxTypes.FindByDescription("Main petty cash");
+	NameOfPettyCash = Structure.Company.NameOfPettyCash;
+	PettyCash = Catalogs.TaxTypes.FindByDescription(NameOfPettyCash);
 	If Not ValueIsFilled(PettyCash) Then
 		PettyCash = Catalogs.PettyCashes.CreateItem();
-		PettyCash.Description = "Main petty cash";
+		PettyCash.Description = NameOfPettyCash;
 		PettyCash.CurrencyByDefault = Structure.AccountingCurrency;
 		PettyCash.GLAccount = ChartsOfAccounts.Managerial.PettyCash;
 		PettyCash.Write();
@@ -25,12 +26,12 @@ Procedure CreateCompany(Structure) Export
 	OurCompanyRef = Catalogs.Companies.MainCompany;
 	OurCompany = OurCompanyRef.GetObject();
 	FillPropertyValues(OurCompany, Structure.Company);
-	
+	OurCompany.PayerDescriptionOnTaxTransfer = OurCompany.DescriptionFull;
 	OurCompany.PettyCashByDefault = PettyCash.Ref;
 	OurCompany.BusinessCalendar   = SmallBusinessServer.GetCalendarByProductionCalendaRF();
 	OurCompany.Write();
 	
-	// 11. Fill in prices kinds.
+	// Fill in prices kinds.
 	// Wholesale.
 	WholesaleRef = Catalogs.PriceKinds.Wholesale;
 	Wholesale = WholesaleRef.GetObject();
@@ -120,7 +121,10 @@ Procedure FillContractsForms(Postfix)
 		FillContractsFormsRu();
 	Else
 		FillContractsFormsDefault();
-	EndIf
+	EndIf;
+	
+	ParametersStructure = New Structure("DataProcessorCompleted");
+	InfobaseUpdateSB.UpdateContractForms(ParametersStructure);
 	
 EndProcedure
 
@@ -170,6 +174,8 @@ Procedure FillCurrencyDefault(Structure)
 	CurrencyRef = InfobaseUpdateSB.FindCreateCurrency("643", "rub.", "Russian ruble", "ruble, ruble, rubles, M, kopek, kopek, kopeks, F, 2");  // TODO Change for EUR
 	Constants.AccountingCurrency.Set(CurrencyRef);
 	Constants.NationalCurrency.Set(CurrencyRef);
+	// If it necessary to keep accounts of operations in several currencies, you should enable this option
+	Constants.FunctionalCurrencyTransactionsAccounting.Set(False);
 	
 	Structure.Insert("Currency", CurrencyRef);
 	
@@ -499,6 +505,7 @@ Procedure FillInformationAboutNewCompanyDefault(Structure)
 	StructureCompany.Insert("Prefix",                "OF-""");
 	StructureCompany.Insert("LegalEntityIndividual", Enums.LegalEntityIndividual.LegalEntity);
 	StructureCompany.Insert("IncludeVATInPrice",     True);
+	StructureCompany.Insert("NameOfPettyCash",       "Main petty cash");
 	
 	Structure.Insert("Company", StructureCompany);
 	
@@ -537,7 +544,8 @@ Procedure FillCurrencyRu(Structure)
 	CurrencyRef = InfobaseUpdateSB.FindCreateCurrency("643", "руб.", "Российский рубль", "рубль, рубля, рублей, M, копейка, копейки, копеек, F, 2");
 	Constants.AccountingCurrency.Set(CurrencyRef);
 	Constants.NationalCurrency.Set(CurrencyRef);
-	
+	// If it necessary to keep accounts of operations in several currencies, you should enable this option
+	Constants.FunctionalCurrencyTransactionsAccounting.Set(False);
 	Structure.Insert("Currency", CurrencyRef);
 	
 EndProcedure
@@ -866,6 +874,7 @@ Procedure FillInformationAboutNewCompanyRu(Structure)
 	StructureCompany.Insert("Prefix", "OF-""");
 	StructureCompany.Insert("LegalEntityIndividual", Enums.LegalEntityIndividual.LegalEntity);
 	StructureCompany.Insert("IncludeVATInPrice", True);
+	StructureCompany.Insert("NameOfPettyCash", "Основная касса");
 	
 	Structure.Insert("Company", StructureCompany);
 	

@@ -257,11 +257,11 @@
 									<ToolTip>
 										<v8:item>
 											<v8:lang>en</v8:lang>
-											<v8:content>You can change the company name later in "Company"</v8:content>
+											<v8:content>You can change the company name later in "Companies"</v8:content>
 										</v8:item>
 										<v8:item>
 											<v8:lang>ru</v8:lang>
-											<v8:content>Вы можете изменить название компании позже в "Организациях"</v8:content>
+											<v8:content>Вы можете изменить название компании позже в "Организации"</v8:content>
 										</v8:item>
 									</ToolTip>
 									<ToolTipRepresentation>ShowBottom</ToolTipRepresentation>
