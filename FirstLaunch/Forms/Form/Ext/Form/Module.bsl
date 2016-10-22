@@ -94,7 +94,10 @@ EndProcedure
 
 &AtClient
 Procedure Finish(Command)
+	
 	FinishAtServer();
+	Close(True);
+	
 EndProcedure
 
 &AtServer
