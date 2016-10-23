@@ -104,9 +104,9 @@ EndProcedure
 Procedure FinishAtServer()
 	
 	Structure = New Structure;
-	Structure.Insert("Company", InformationAboutCompany);
-	Structure.Insert("AccountingCurrency", AccountingCurrency);
-	Structure.Insert("NationalCurrency", NationalCurrency);
+	Structure.Insert("Company",				InformationAboutCompany);
+	Structure.Insert("AccountingCurrency", 	AccountingCurrency);
+	Structure.Insert("NationalCurrency", 	NationalCurrency);
 	
 	Obj = FormAttributeToValue("Object");
 	Obj.CreateCompany(Structure);

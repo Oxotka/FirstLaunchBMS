@@ -108,7 +108,7 @@
 					<tl>
 						<v8:item>
 							<v8:lang>en</v8:lang>
-							<v8:content>Название страны</v8:content>
+							<v8:content>Country Name</v8:content>
 						</v8:item>
 					</tl>
 				</c>
@@ -119,7 +119,7 @@
 					<tl>
 						<v8:item>
 							<v8:lang>en</v8:lang>
-							<v8:content>Произвольное описание</v8:content>
+							<v8:content>Description</v8:content>
 						</v8:item>
 					</tl>
 				</c>
@@ -130,7 +130,7 @@
 					<tl>
 						<v8:item>
 							<v8:lang>en</v8:lang>
-							<v8:content>Постфикс</v8:content>
+							<v8:content>PostFix</v8:content>
 						</v8:item>
 					</tl>
 				</c>
@@ -187,7 +187,7 @@
 					<tl>
 						<v8:item>
 							<v8:lang>en</v8:lang>
-							<v8:content>Румыния</v8:content>
+							<v8:content>Romania</v8:content>
 						</v8:item>
 					</tl>
 				</c>
@@ -198,7 +198,13 @@
 					<tl>
 						<v8:item>
 							<v8:lang>en</v8:lang>
-							<v8:content>Здесь будет на румынском и про румынию</v8:content>
+							<v8:content>Cataloage pentru incarcare datele:
+Taxe
+Cote TVA
+Valute
+Valute de Gestiune
+Tipuri Timpului de Lucru
+si altele</v8:content>
 						</v8:item>
 					</tl>
 				</c>
@@ -247,7 +253,7 @@
 					<tl>
 						<v8:item>
 							<v8:lang>en</v8:lang>
-							<v8:content>La</v8:content>
+							<v8:content>Lv</v8:content>
 						</v8:item>
 					</tl>
 				</c>
