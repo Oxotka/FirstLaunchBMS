@@ -67,16 +67,16 @@ EndProcedure
 &AtClient
 Procedure Go(Command)
 	
-	FillPredifenedDateAtServer();
+	FillPredifenedDataAtServer();
 	
 EndProcedure
 
 &AtServer
-Procedure FillPredifenedDateAtServer()
+Procedure FillPredifenedDataAtServer()
 	
 	Obj = FormAttributeToValue("Object");
 	
-	Structure = Obj.PredifenedDateAtServer(Postfix);
+	Structure = Obj.PredifenedDataAtServer(Postfix);
 	If Structure.Property("Company") And Structure.Company.Property("DescriptionFull") Then
 		DescriptionFull = Structure.Company.DescriptionFull;
 		InformationAboutCompany = Structure.Company;
