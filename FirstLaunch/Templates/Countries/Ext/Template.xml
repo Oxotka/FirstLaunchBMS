@@ -146,7 +146,7 @@
 					<tl>
 						<v8:item>
 							<v8:lang>en</v8:lang>
-							<v8:content>Россия</v8:content>
+							<v8:content>Russia</v8:content>
 						</v8:item>
 					</tl>
 				</c>
@@ -231,18 +231,21 @@ si altele</v8:content>
 					<tl>
 						<v8:item>
 							<v8:lang>en</v8:lang>
-							<v8:content>Латвия</v8:content>
+							<v8:content>Latvia</v8:content>
 						</v8:item>
 					</tl>
 				</c>
 			</c>
 			<c>
 				<c>
-					<f>0</f>
+					<f>2</f>
 					<tl>
 						<v8:item>
 							<v8:lang>en</v8:lang>
-							<v8:content>И так далее</v8:content>
+							<v8:content>Будут предзаполнены следующие справочники:
+Валюта учета.
+Налоги
+И прочее</v8:content>
 						</v8:item>
 					</tl>
 				</c>
@@ -269,13 +272,108 @@ si altele</v8:content>
 					<tl>
 						<v8:item>
 							<v8:lang>en</v8:lang>
-							<v8:content>Любая другая страна</v8:content>
+							<v8:content>Hungury</v8:content>
 						</v8:item>
 					</tl>
 				</c>
 			</c>
 			<c>
-				<i>2</i>
+				<c>
+					<f>2</f>
+					<tl>
+						<v8:item>
+							<v8:lang>en</v8:lang>
+							<v8:content>Будут предзаполнены следующие справочники:
+Валюта учета.
+Налоги
+И прочее</v8:content>
+						</v8:item>
+					</tl>
+				</c>
+			</c>
+			<c>
+				<c>
+					<f>0</f>
+					<tl>
+						<v8:item>
+							<v8:lang>en</v8:lang>
+							<v8:content>Hu</v8:content>
+						</v8:item>
+					</tl>
+				</c>
+			</c>
+		</row>
+	</rowsItem>
+	<rowsItem>
+		<index>5</index>
+		<row>
+			<c>
+				<c>
+					<f>0</f>
+					<tl>
+						<v8:item>
+							<v8:lang>en</v8:lang>
+							<v8:content>Moldova</v8:content>
+						</v8:item>
+					</tl>
+				</c>
+			</c>
+			<c>
+				<c>
+					<f>2</f>
+					<tl>
+						<v8:item>
+							<v8:lang>en</v8:lang>
+							<v8:content>Cataloage pentru incarcare datele:
+Taxe
+Cote TVA
+Valute
+Valute de Gestiune
+Tipuri Timpului de Lucru
+si altele</v8:content>
+						</v8:item>
+					</tl>
+				</c>
+			</c>
+			<c>
+				<c>
+					<f>0</f>
+					<tl>
+						<v8:item>
+							<v8:lang>en</v8:lang>
+							<v8:content>Md</v8:content>
+						</v8:item>
+					</tl>
+				</c>
+			</c>
+		</row>
+	</rowsItem>
+	<rowsItem>
+		<index>6</index>
+		<row>
+			<c>
+				<c>
+					<f>0</f>
+					<tl>
+						<v8:item>
+							<v8:lang>en</v8:lang>
+							<v8:content>Other Country</v8:content>
+						</v8:item>
+					</tl>
+				</c>
+			</c>
+			<c>
+				<c>
+					<f>0</f>
+					<tl>
+						<v8:item>
+							<v8:lang>en</v8:lang>
+							<v8:content>Filling Catalogs</v8:content>
+						</v8:item>
+					</tl>
+				</c>
+			</c>
+			<c>
 				<c>
 					<f>0</f>
 					<tl>
@@ -290,14 +388,14 @@ si altele</v8:content>
 	</rowsItem>
 	<templateMode>true</templateMode>
 	<defaultFormatIndex>3</defaultFormatIndex>
-	<height>5</height>
-	<vgRows>5</vgRows>
+	<height>7</height>
+	<vgRows>7</vgRows>
 	<namedItem xsi:type="NamedItemCells">
 		<name>Countries</name>
 		<area>
 			<type>Rows</type>
 			<beginRow>1</beginRow>
-			<endRow>4</endRow>
+			<endRow>6</endRow>
 			<beginColumn>-1</beginColumn>
 			<endColumn>-1</endColumn>
 		</area>
