@@ -103,6 +103,8 @@ EndProcedure
 &AtServer
 Procedure FinishAtServer()
 	
+	InformationAboutCompany.Insert("DescriptionFull", DescriptionFull);
+	
 	Structure = New Structure;
 	Structure.Insert("Company",				InformationAboutCompany);
 	Structure.Insert("AccountingCurrency", 	AccountingCurrency);
