@@ -124,7 +124,7 @@ Procedure FillTaxTypesFromArray(ArrayOfTaxTypes)
 	EndIf;
 	
 	For Each TaxType In ArrayOfTaxTypes Do
-		If Not ValueIsFilled(TaxType.Descriprion) Then
+		If Not ValueIsFilled(TaxType.Description) Then
 			Continue;
 		EndIf;
 		TaxKind = Catalogs.TaxTypes.CreateItem();
