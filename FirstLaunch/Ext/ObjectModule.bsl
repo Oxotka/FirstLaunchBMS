@@ -8,7 +8,7 @@
 // In this procedure execute filling Predefined company, create PettyCash and prices kind.
 // 
 
-////////////////////////////////////////////////////
+
 // Function start filling data for choisen country
 // 1. Fill in tax types 
 // 2. Fill in currency 
@@ -23,13 +23,24 @@ Function PredefinedDataAtServer(Postfix) Export
 	Structure = New Structure;
 	Postfix   = Upper(Postfix);
 	
-	PredefinedDateAtServerForCountry(Structure, Postfix);
+	If Postfix = Upper("Ru") Then
+		PredefinedDataAtServerForRu(Structure);
+	ElsIf Postfix = Upper("Ro") Then
+		PredefinedDataAtServerForRo(Structure);
+	ElsIf Postfix = Upper("Lv") Then
+		PredefinedDataAtServerForLv(Structure);
+	ElsIf Postfix = Upper("Hu") Then
+		PredefinedDataAtServerForHu(Structure);
+	ElsIf Postfix = Upper("Md") Then
+		PredefinedDataAtServerForMd(Structure);
+	Else
+		PredefinedDataAtServerForDefault(Structure);
+	EndIf;
 	
 	Return Structure;
 	
 EndFunction
 
-////////////////////////////////////////////////////
 // Function fill information about company
 // 1. Fill in company
 // 2. Fill in petty cash
@@ -81,76 +92,6 @@ Procedure CreateCompany(Structure) Export
 	
 EndProcedure
 
-#Region MainProcedures
-
-Procedure PredefinedDateAtServerForCountry(Structure, Postfix)
-	
-	// 1. Fill in tax types
-	FillTaxTypes(Postfix);
-	// 2. Fill in currencies
-	FillCurrency(Structure, Postfix);
-	// 3. Fill in VAT rates.
-	FillVATRates(Structure, Postfix);
-	// 4. Fill in classifier of the working time use.
-	FillClassifierOfWorkingTimeUsage(Postfix);
-	// 5. Fill in description of company.
-	FillInformationAboutNewCompany(Structure, Postfix);
-	
-EndProcedure
-
-Procedure FillTaxTypes(Postfix)
-	
-	If ThisIsRu(Postfix) Then 
-		FillTaxTypesRu();
-	// ElsIf ThisIsRo(Postfix) Then
-	Else
-		FillTaxTypesDefault();
-	EndIf
-	
-EndProcedure
-
-Procedure FillCurrency(Structure, Postfix)
-	
-	If ThisIsRu(Postfix) Then 
-		FillCurrencyRu(Structure);
-	Else
-		FillCurrencyDefault(Structure);
-	EndIf
-	
-EndProcedure
-
-Procedure FillVATRates(Structure, Postfix)
-	
-	If ThisIsRu(Postfix) Then 
-		FillVATRatesRu(Structure);
-	Else
-		FillVATRatesDefault(Structure);
-	EndIf
-	
-EndProcedure
-
-Procedure FillClassifierOfWorkingTimeUsage(Postfix)
-	
-	If ThisIsRu(Postfix) Then 
-		FillClassifierOfWorkingTimeUsageRu();
-	Else
-		FillClassifierOfWorkingTimeUsageDefault();
-	EndIf
-	
-EndProcedure
-
-Procedure FillInformationAboutNewCompany(Structure, Postfix)
-	
-	If ThisIsRu(Postfix) Then 
-		FillInformationAboutNewCompanyRu(Structure);
-	Else
-		FillInformationAboutNewCompanyDefault(Structure);
-	EndIf
-	
-EndProcedure
-
-#EndRegion
-
 #Region OtherProcedures
 
 Function NewTaxType(Description, GLAccount = Undefined, GLAccountForReimbursement = Undefined)
@@ -183,6 +124,9 @@ Procedure FillTaxTypesFromArray(ArrayOfTaxTypes)
 	EndIf;
 	
 	For Each TaxType In ArrayOfTaxTypes Do
+		If Not ValueIsFilled(TaxType.Descriprion) Then
+			Continue;
+		EndIf;
 		TaxKind = Catalogs.TaxTypes.CreateItem();
 		FillPropertyValues(TaxKind, TaxType);
 		TaxKind.Write();
@@ -251,17 +195,24 @@ EndProcedure
 
 #EndRegion
 
-#Region DefinedCountry
-
-Function ThisIsRu(Postfix)
-	Return Postfix = Upper("Ru");
-EndFunction 
-
-#EndRegion
-
 #Region ProceduresForCountry
 
 #Region Default
+
+Procedure PredefinedDataAtServerForDefault(Structure)
+
+	// 1. Fill in tax types
+	FillTaxTypesDefault();
+	// 2. Fill in currencies
+	FillCurrencyDefault(Structure);
+	// 3. Fill in VAT rates.
+	FillVATRatesDefault(Structure);
+	// 4. Fill in classifier of the working time use.
+	FillClassifierOfWorkingTimeUsageDefault();
+	// 5. Fill in description of company.
+	FillInformationAboutNewCompanyDefault(Structure);
+
+EndProcedure
 
 Procedure FillTaxTypesDefault()
 	
@@ -448,11 +399,22 @@ EndProcedure
 #EndRegion
 // EndRegion Default
 
-
-//      В КАЖДОЙ СТРАНЕ - СВОЯ ПЯТИДНЕВКА ?
-
-
 #Region Ru
+
+Procedure PredefinedDataAtServerForRu(Structure)
+
+	// 1. Fill in tax types
+	FillTaxTypesRu();
+	// 2. Fill in currencies
+	FillCurrencyRu(Structure);
+	// 3. Fill in VAT rates.
+	FillVATRatesRu(Structure);
+	// 4. Fill in classifier of the working time use.
+	FillClassifierOfWorkingTimeUsageRu();
+	// 5. Fill in description of company.
+	FillInformationAboutNewCompanyRu(Structure);
+
+EndProcedure
 
 Procedure FillTaxTypesRu()
 	
@@ -705,6 +667,21 @@ EndProcedure	//	FillInformationAboutNewCompanyRu()
 // EndRegion RU
 
 #Region Ro
+
+Procedure PredefinedDataAtServerForRo(Structure)
+
+	// 1. Fill in tax types
+	FillTaxTypesRo();
+	// 2. Fill in currencies
+	FillCurrencyRo(Structure);
+	// 3. Fill in VAT rates.
+	FillVATRatesRo(Structure);
+	// 4. Fill in classifier of the working time use.
+	FillClassifierOfWorkingTimeUsageRo();
+	// 5. Fill in description of company.
+	FillInformationAboutNewCompanyRo(Structure);
+
+EndProcedure
 
 Procedure FillTaxTypesRo()
 	
@@ -1151,6 +1128,21 @@ EndProcedure	// FillInformationAboutNewCompanyRo()
 
 #Region Lv
 
+Procedure PredefinedDataAtServerForLv(Structure)
+
+	// 1. Fill in tax types
+	FillTaxTypesLv();
+	// 2. Fill in currencies
+	FillCurrencyLv(Structure);
+	// 3. Fill in VAT rates.
+	FillVATRatesLv(Structure);
+	// 4. Fill in classifier of the working time use.
+	FillClassifierOfWorkingTimeUsageLv();
+	// 5. Fill in description of company.
+	FillInformationAboutNewCompanyLv(Structure);
+
+EndProcedure
+
 Procedure FillTaxTypesLv()
 	
 	ArrayOfTaxTypes = New Array;
@@ -1393,6 +1385,21 @@ EndProcedure	// FillInformationAboutNewCompanyLv()
 // EndRegion LV
 
 #Region Hu
+
+Procedure PredefinedDataAtServerForHu(Structure)
+
+	// 1. Fill in tax types
+	FillTaxTypesHu();
+	// 2. Fill in currencies
+	FillCurrencyHu(Structure);
+	// 3. Fill in VAT rates.
+	FillVATRatesHu(Structure);
+	// 4. Fill in classifier of the working time use.
+	FillClassifierOfWorkingTimeUsageHu();
+	// 5. Fill in description of company.
+	FillInformationAboutNewCompanyHu(Structure);
+
+EndProcedure
 
 Procedure FillTaxTypesHu()
 	
@@ -1638,6 +1645,21 @@ EndProcedure	// FillInformationAboutNewCompanyHu()
 // EndRegion HU
 
 #Region Md
+
+Procedure PredefinedDataAtServerForMd(Structure)
+
+	// 1. Fill in tax types
+	FillTaxTypesMd();
+	// 2. Fill in currencies
+	FillCurrencyMd(Structure);
+	// 3. Fill in VAT rates.
+	FillVATRatesMd(Structure);
+	// 4. Fill in classifier of the working time use.
+	FillClassifierOfWorkingTimeUsageMd();
+	// 5. Fill in description of company.
+	FillInformationAboutNewCompanyMd(Structure);
+
+EndProcedure
 
 Procedure FillTaxTypesMd()
 	
@@ -1918,7 +1940,6 @@ EndProcedure	// FillInformationAboutNewCompanyMd(Structure)
 
 #EndRegion
 // EndRegion MD
-
 
 #EndRegion
 // #EndRegion ProceduresForCountry
