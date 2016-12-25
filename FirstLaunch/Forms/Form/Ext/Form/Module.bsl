@@ -82,6 +82,15 @@ Procedure Go(Command)
 	
 EndProcedure
 
+&AtServer
+Procedure FillPredefinedDataAtServer(FileName)
+	
+	Obj = FormAttributeToValue("Object");
+	Obj.PredefinedDataAtServer(FileName);
+	CommonUseClientServer.MessageToUser(NStr("ru='Первоначальная загрузка завершена.';en='Первоначальная загрузка завершена.'"));
+	
+EndProcedure
+
 &AtClient
 Function PathToFile()
 
@@ -92,15 +101,6 @@ EndFunction
 &AtClient
 Function NameOfFile(Postfix)
 
-	Return "FirstData_" + PostFix;
+	Return StrTemplate("FirstData_%1.xml", PostFix);
 
 EndFunction
-
-&AtServer
-Procedure FillPredefinedDataAtServer(FileName)
-	
-	Obj = FormAttributeToValue("Object");
-	Obj.PredefinedDataAtServer(FileName);
-	CommonUseClientServer.MessageToUser(NStr("ru='Первоначальная загрузка завершена.';en='Первоначальная загрузка завершена.'"));
-	
-EndProcedure
