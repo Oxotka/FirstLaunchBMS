@@ -60,57 +60,47 @@ EndProcedure
 
 &AtClient
 Procedure TipOfChoiceCountryURLProcessing(Item, FormattedStringURL, StandardProcessing)
+	
 	StandardProcessing = False;
 	ShowMessageBox(, NStr("ru='Здесь будет подсказка.'; en='This is tip'"));
+	
 EndProcedure
 
 &AtClient
 Procedure Go(Command)
 	
-	FillPredefinedDataAtServer();
-	
-EndProcedure
-
-&AtServer
-Procedure FillPredefinedDataAtServer()
-	
-	Obj = FormAttributeToValue("Object");
-	
-	Structure = Obj.PredefinedDataAtServer(Postfix);
-	If Structure.Property("Company") And Structure.Company.Property("DescriptionFull") Then
-		DescriptionFull = Structure.Company.DescriptionFull;
-		InformationAboutCompany = Structure.Company;
-		InformationAboutCompany.Insert("DefaultVATRate", Structure.VAT);
+	// Find the file
+	FileName = PathToFile() + NameOfFile(Postfix);
+	File = New File(FileName);
+	If File.Exist() Then
+		// If file exist then fill data from file at server.
+		FillPredefinedDataAtServer(FileName);
+	Else
+		CommonUseClientServer.MessageToUser(
+			StrTemplate(NStr("ru='Файл %1 не найден.';en='File %1 was not found.'"), FileName));
 	EndIf;
-	
-	AccountingCurrency = Structure.Currency;
-	NationalCurrency   = Structure.Currency;
-	
-	// Set page "Company"
-	Items.GroupPages.CurrentPage = Items.PageCompany;
-	Items.Finish.DefaultButton = True;
 	
 EndProcedure
 
 &AtClient
-Procedure Finish(Command)
-	
-	FinishAtServer();
-	Close(True);
-	
-EndProcedure
+Function PathToFile()
+
+	Return "C:\";
+
+EndFunction
+
+&AtClient
+Function NameOfFile(Postfix)
+
+	Return "FirstData_" + PostFix;
+
+EndFunction
 
 &AtServer
-Procedure FinishAtServer()
-	
-	InformationAboutCompany.Insert("DescriptionFull", DescriptionFull);
-	
-	Structure = New Structure;
-	Structure.Insert("Company",				InformationAboutCompany);
-	Structure.Insert("AccountingCurrency", 	AccountingCurrency);
-	Structure.Insert("NationalCurrency", 	NationalCurrency);
+Procedure FillPredefinedDataAtServer(FileName)
 	
 	Obj = FormAttributeToValue("Object");
-	Obj.CreateCompany(Structure);
+	Obj.PredefinedDataAtServer(FileName);
+	CommonUseClientServer.MessageToUser(NStr("ru='Первоначальная загрузка завершена.';en='Первоначальная загрузка завершена.'"));
 	
 EndProcedure
