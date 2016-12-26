@@ -79,6 +79,7 @@ Procedure Go(Command)
 		CommonUseClientServer.MessageToUser(
 			StrTemplate(NStr("ru='Файл %1 не найден.';en='File %1 was not found.'"), FileName));
 	EndIf;
+	Close();
 	
 EndProcedure
 
@@ -87,7 +88,6 @@ Procedure FillPredefinedDataAtServer(FileName)
 	
 	Obj = FormAttributeToValue("Object");
 	Obj.PredefinedDataAtServer(FileName);
-	CommonUseClientServer.MessageToUser(NStr("ru='Первоначальная загрузка завершена.';en='Первоначальная загрузка завершена.'"));
 	
 EndProcedure
 
