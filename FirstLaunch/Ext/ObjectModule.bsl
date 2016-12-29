@@ -40,7 +40,7 @@ Procedure PredefinedDataAtServer(Val FileName) Export
 		OR XMLReader.LocalName <> "_1CV8DtUD"
 		OR XMLReader.NamespaceURI <> "http://www.1c.ru/V8/1CV8DtUD/" Then
 		
-		CommonUseClientServer.MessageToUser(NStr("ru = 'Неверный формат файла выгрузки'"));
+		MessageToUserInvalidFormatFile();
 		Return;
 		
 	EndIf;
@@ -49,7 +49,7 @@ Procedure PredefinedDataAtServer(Val FileName) Export
 		OR XMLReader.NodeType <> XMLNodeType.StartElement
 		OR XMLReader.LocalName <> "Data" Then
 		
-		CommonUseClientServer.MessageToUser(NStr("ru = 'Неверный формат файла выгрузки'"));
+		MessageToUserInvalidFormatFile();
 		Return;
 		
 	EndIf;
@@ -63,7 +63,7 @@ Procedure PredefinedDataAtServer(Val FileName) Export
 	
 	If Not XMLReader.Read() Then 
 		
-		CommonUseClientServer.MessageToUser(NStr("ru = 'Неверный формат файла выгрузки'"));
+		MessageToUserInvalidFormatFile();
 		Return;
 		
 	EndIf;
@@ -91,10 +91,12 @@ Procedure PredefinedDataAtServer(Val FileName) Export
 			
 			Try
 				TextForMessage = NStr("ru = 'При загрузке объекта %1(%2) возникла ошибка:
+					|%3';en='When load object %1(%2) error occurred:
 					|%3'");
 				TextForMessage = StrTemplate(TextForMessage, WriteValue, TypeOf(WriteValue), ErrorText);
 			Except
 				TextForMessage = NStr("ru = 'При загрузке данных возникла ошибка:
+					|%1;en='When load data error occurred:
 					|%1'");
 				TextForMessage = StrTemplate(TextForMessage, ErrorText);
 			EndTry;
@@ -108,7 +110,7 @@ Procedure PredefinedDataAtServer(Val FileName) Export
 	If XMLReader.NodeType <> XMLNodeType.EndElement
 		OR XMLReader.LocalName <> "Data" Then
 		
-		CommonUseClientServer.MessageToUser(NStr("ru = 'Неверный формат файла выгрузки'"));
+		MessageToUserInvalidFormatFile();
 		Return;
 		
 	EndIf;
@@ -117,7 +119,7 @@ Procedure PredefinedDataAtServer(Val FileName) Export
 		OR XMLReader.NodeType <> XMLNodeType.StartElement
 		OR XMLReader.LocalName <> "PredefinedData" Then
 		
-		CommonUseClientServer.MessageToUser(NStr("ru = 'Неверный формат файла выгрузки'"));
+		MessageToUserInvalidFormatFile();
 		Return;
 		
 	EndIf;
@@ -129,7 +131,7 @@ Procedure PredefinedDataAtServer(Val FileName) Export
 		OR XMLReader.LocalName <> "_1CV8DtUD"
 		OR XMLReader.NamespaceURI <> "http://www.1c.ru/V8/1CV8DtUD/" Then
 		
-		CommonUseClientServer.MessageToUser(NStr("ru = 'Неверный формат файла выгрузки'"));
+		MessageToUserInvalidFormatFile();
 		Return;
 		
 	EndIf;
@@ -139,6 +141,12 @@ Procedure PredefinedDataAtServer(Val FileName) Export
 EndProcedure
 
 #Region XMLLoad
+
+Procedure MessageToUserInvalidFormatFile()
+	
+	CommonUseClientServer.MessageToUser(NStr("ru = 'Неверный формат файла выгрузки';en='File has invalid format for unload'"));
+	
+EndProcedure
 
 Procedure InitializateTableOfPredifined()
 	
@@ -220,7 +228,7 @@ Procedure LoadTableOfPredifined(XMLReader)
 						
 					Else
 						
-						ExeptionText = NStr("ru = 'Обнаружено дублирование предопределенных элементов %1 в таблице %2!'");
+						ExeptionText = NStr("ru = 'Обнаружено дублирование предопределенных элементов %1 в таблице %2!';en='Predefined table %2 has double elements %1'");
 						ExeptionText = StrReplace(ExeptionText, "%1", TempRow.PredefinedDataName);
 						ExeptionText = StrReplace(ExeptionText, "%2", TempRow.TableName);
 						
@@ -389,7 +397,7 @@ Function XMLTypeOfRef(Val Value)
 		
 	Else
 		
-		ExceptionText = NStr("ru = 'Ошибка при определении XMLТипа ссылки для объекта %1: объект не является ссылочным!'");
+		ExceptionText = NStr("ru = 'Ошибка при определении XMLТипа ссылки для объекта %1: объект не является ссылочным!';en='Error determining XMLТипа links for object %1: object is not a reference!'");
 		ExceptionText = StrReplace(ExceptionText, "%1", MetadataObject.FullName());
 		
 		Raise ExceptionText;
